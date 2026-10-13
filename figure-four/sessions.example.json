@@ -1,0 +1,32 @@
+{
+  "data_root": "<RAW_DATA_ROOT>",
+  "sessions": {
+    "P01-S1": {
+      "recording": "<recording-day pickle of P01, session 1>",
+      "rest_recording": "<rest recording of P01, session 1>"
+    },
+    "P01-S2": {
+      "recording": "<recording-day pickle of P01, session 2>",
+      "rest_recording": "<rest recording of P01, session 2>"
+    },
+    "P02": {
+      "recording": "<recording-day pickle of P02>",
+      "rest_recording": "<rest recording of P02>",
+      "raw_task_recordings": {
+        "Pinch_trial1_left": "<raw pinch recording of P02 (cue correction)>"
+      }
+    },
+    "P03": {
+      "recording": "<recording-day pickle of P03>",
+      "rest_recording": "<rest recording of P03>"
+    },
+    "P04": {
+      "recording": "<recording-day pickle of P04>",
+      "rest_recording": "<rest recording of P04>"
+    },
+    "P05": {
+      "recording": "<recording-day pickle of P05>",
+      "rest_recording": "<rest recording of P05>"
+    }
+  }
+}
