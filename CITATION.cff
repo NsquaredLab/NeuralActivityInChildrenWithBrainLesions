@@ -24,7 +24,7 @@ version: 1.0.0
 date-released: 2026-07-08
 doi: 10.5281/zenodo.21269465
 repository-code: >-
-  https://github.com/NsquaredLab/IntuitivePeripheralDecodingRestoresHandControlAfterChildhoodHemispherotomy/
+  https://github.com/NsquaredLab/NeuralActivityInChildrenWithBrainLesions
 keywords:
   - electromyography
   - EMG
