@@ -6,6 +6,10 @@ Step 3 of the Figure 3 pipeline: group overview of the motor-unit
 cross-correlation at lag 0 with the trigger, by gesture and recording day
 (Fig3_MU_xcorr_overview).
 
+Not shown in the paper: this figure was made for the manual (by-eye)
+correlation of the motor-unit discharge rates with the cue. The script is
+kept in the repository so that this manual analysis can be retraced.
+
     top panel     bar = mean of ``xcorr_lag0_hold_mean`` across all MUs that
                   have a value; error bar = SD across those MUs (ddof = 1; only
                   drawn for n >= 2); dots = the individual MUs

@@ -9,10 +9,11 @@ title: >-
 abstract: >-
   Analysis and figure-generation code accompanying the study "Hidden motor
   neuron activity restores grasp in children with paralysed hand".
-  Includes the high-density surface-EMG figure scripts (Figure 2, Figure 3) and
-  the Figure 4 offline-decoding pipeline (rule-based attempt labelling,
-  leave-one-repetition-out CatBoost cross-validation, permutation statistics,
-  Figure 4, Supplementary Figures S2b-S7b and Supplementary Table S2). To
+  Includes the motor-unit tracking and cue-modulation analyses (Figures 2 and
+  3, Supplementary Figures 2a-7a), the Figure 4 offline-decoding pipeline
+  (rule-based attempt labelling, leave-one-repetition-out CatBoost
+  cross-validation, permutation statistics, Supplementary Figures 2b-7b and
+  Supplementary Table 2) and the exergame analysis (Figure 5). To
   protect the vulnerable paediatric participants, no participant data —
   neither the raw recordings nor any derived features — are distributed
   with this software; all data are available from the authors on reasonable
@@ -20,8 +21,8 @@ abstract: >-
   the results can be reproduced once data access has been granted.
 type: software
 license: MIT
-version: 1.0.0
-date-released: 2026-07-08
+version: 0.2.0
+date-released: 2026-10-15
 doi: 10.5281/zenodo.21269465
 repository-code: >-
   https://github.com/NsquaredLab/NeuralActivityInChildrenWithBrainLesions

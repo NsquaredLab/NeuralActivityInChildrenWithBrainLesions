@@ -23,9 +23,10 @@ Analysis and figure-generation code accompanying the study:
 > 5. Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU), Deutsches Zentrum für Immuntherapie (DZI); Erlangen, Germany.
 
 This repository reproduces the quantitative panels of Figures 2, 3, 4 and 5,
-the per-session offline-decoding Supplementary Figures S2b–S7b and
-Supplementary Table S2 from the high-density surface-electromyography (EMG)
-recordings and the EMG-bracelet exergame recording analysed in the study.
+the per-session Supplementary Figures 2a–7a (motor-unit tracking) and 2b–7b
+(offline decoding) and Supplementary Table 2 from the high-density
+surface-electromyography (EMG) recordings and the EMG-bracelet exergame
+recording analysed in the study.
 
 ---
 
@@ -51,7 +52,7 @@ once data access has been granted.
 
 ```
 .
-├── figure-two/                         # Figure 2: motor-unit tracking per recording day
+├── figure-two/                         # Figure 2D/E, Supplementary Figs. 2a–7a: MU tracking
 │   ├── _common.py                      #   recording days, data readers, hold labels
 │   ├── _emg.py                         #   filters, discharge rate, MUAP maps
 │   ├── _tracking.py, _plot.py          #   figure builders, drawing
@@ -66,21 +67,21 @@ once data access has been granted.
 │   ├── sessions.example.json           #   layout of the private data-file mapping
 │   ├── 01_xcorr_trigger.py             #   step 1  xcorr with the recorded trigger
 │   ├── 02_xcorr_labels.py              #   step 2  xcorr with the hold labels
-│   ├── 03_xcorr_overview.py            #   step 3  Fig3_MU_xcorr_overview
-│   └── 04_mu_overview.py               #   step 4  Fig3_MU_overview (panels a-c)
+│   ├── 03_xcorr_overview.py            #   step 3  trigger xcorr overview (not in the paper)
+│   └── 04_mu_overview.py               #   step 4  Figure 3 (Fig3_MU_overview)
 ├── figure-four/                        # Figure 4: offline decoding of cued hand tasks
-    ├── _common.py                      #   sessions, analysis decisions, shared helpers
-    ├── _emg.py                         #   filters, RMS features, CatBoost settings
-    ├── _style.py, _svg.py              #   figure style, editable-SVG export
-    ├── sessions.example.json           #   layout of the private data-file mapping
-    ├── 01_auto_labels.py               #   step 1  rule-based attempt labels
-    ├── 02_dataset.py                   #   step 2  labelled datasets + RMS features
-    ├── 03_loro_cv.py                   #   step 3  leave-one-repetition-out CatBoost CV
-    ├── 04_statistics.py                #   step 4  permutation tests, bootstrap CIs, Holm
-    ├── 05_figure.py                    #   step 5  Figure 4 (composite + panel SVGs)
-    ├── 06_attempt_summary.py           #   step 6  attempts per cue, cue coupling, cue timing
-    ├── 07_supplementary_figures.py     #   step 7  Supplementary Figs. S2b–S7b (one per session)
-    └── 08_table_s2.py                  #   step 8  Supplementary Table S2
+│   ├── _common.py                      #   sessions, analysis decisions, shared helpers
+│   ├── _emg.py                         #   filters, RMS features, CatBoost settings
+│   ├── _style.py, _svg.py              #   figure style, editable-SVG export
+│   ├── sessions.example.json           #   layout of the private data-file mapping
+│   ├── 01_auto_labels.py               #   step 1  rule-based attempt labels
+│   ├── 02_dataset.py                   #   step 2  labelled datasets + RMS features
+│   ├── 03_loro_cv.py                   #   step 3  leave-one-repetition-out CatBoost CV
+│   ├── 04_statistics.py                #   step 4  permutation tests, bootstrap CIs, Holm
+│   ├── 05_figure.py                    #   step 5  Figure 4 (composite + panel SVGs)
+│   ├── 06_attempt_summary.py           #   step 6  attempts per cue, cue coupling, cue timing
+│   ├── 07_supplementary_figures.py     #   step 7  Supplementary Figs. 2b–7b (one per session)
+│   └── 08_table_s2.py                  #   step 8  Supplementary Table 2
 └── figure-five/                        # Figure 5: one run of the bracelet exergame
     ├── _common.py                      #   run, cue windows, recording reader
     ├── _metrics.py                     #   latency, accuracy, sample/event F1
@@ -131,20 +132,20 @@ message if a required input is missing.
 
 | Script | Produces |
 | --- | --- |
-| `figure-two/01_tracking_rates.py` | **Figure 2** tracking panels: RMS, discharge rates and pulses per tracked MU (`results/tracking_rates/`) |
-| `figure-two/02_heatmaps_muap.py` | **Figure 2** P2P heatmaps and mean MUAPs per tracked MU (`results/heatmaps/`) |
+| `figure-two/01_tracking_rates.py` | **Supplementary Figs. 2a–7a**, panels A/B: RMS, discharge rates and pulses per tracked MU, one figure per recording day; the P03 figure is the source of **Figure 2D** (`results/tracking_rates/`) |
+| `figure-two/02_heatmaps_muap.py` | **Supplementary Figs. 2a–7a**, panels C/D: mean MUAPs and P2P heatmaps per tracked MU; P03: **Figure 2E** (`results/heatmaps/`) |
 | `figure-three/01_xcorr_trigger.py` | xcorr of the MU discharge rates with the trigger (`data/<S>_*.csv`) |
 | `figure-three/02_xcorr_labels.py` | xcorr of the MU discharge rates with the hold labels (`data/labels_*.csv`, `data/mu_corr_labels_*.csv`) |
-| `figure-three/03_xcorr_overview.py` | **Figure 3** `Fig3_MU_xcorr_overview` (`results/`) |
-| `figure-three/04_mu_overview.py` | **Figure 3** `Fig3_MU_overview`, panels a–c (`results/`) |
+| `figure-three/03_xcorr_overview.py` | `Fig3_MU_xcorr_overview`, made for the manual (by-eye) correlation of the discharge rates with the cue; not shown in the paper (`results/`) |
+| `figure-three/04_mu_overview.py` | **Figure 3** `Fig3_MU_overview` (`results/`) |
 | `figure-four/01_auto_labels.py` | rule-based attempt labels (`data/labels/<S>.labels_auto_v2.json`) |
 | `figure-four/02_dataset.py` | labelled datasets + RMS features (`data/<S>_rms_features.npz`) |
 | `figure-four/03_loro_cv.py` | leave-one-repetition-out predictions + metrics (`results/loro_results.json`) |
 | `figure-four/04_statistics.py` | permutation tests, AUROC intervals, Holm correction (`results/loro_stats.json`) |
 | `figure-four/05_figure.py` | **Figure 4** (`results/figure4/`, composite + panel SVGs) |
 | `figure-four/06_attempt_summary.py` | attempts per cue, cue coupling and timing of the presented cue (`results/attempt_summary*.csv`, `results/cue_timing.csv`) |
-| `figure-four/07_supplementary_figures.py` | **Supplementary Figs. S2b–S7b** (`results/supplementary/SuppFig_<S>.*`) |
-| `figure-four/08_table_s2.py` | **Supplementary Table S2** (`results/table_s2*.csv`, `results/table_s2.md`) |
+| `figure-four/07_supplementary_figures.py` | **Supplementary Figs. 2b–7b** (`results/supplementary/SuppFig_<S>.*`) |
+| `figure-four/08_table_s2.py` | **Supplementary Table 2** (`results/table_s2*.csv`, `results/table_s2.md`) |
 | `figure-five/01_exergame_run.py` | **Figure 5** run plot and event-based confusion matrix (`results/`) |
 | `figure-five/02_exergame_metrics.py` | **Figure 5** accuracy, reaction latency, sample/event F1 (`results/Fig5_exergame_*_values.csv`) |
 
@@ -159,7 +160,7 @@ decomposition of all gestures of the day), `<S>/<S>_raw_and_decomp.labels_auto_v
 Everything the steps write goes to `data/` and `results/` inside the folder,
 both git-ignored.
 
-### Figure 2, Figure 3 and Figure 5
+### Figure 2, Supplementary Figures 2a–7a, Figure 3 and Figure 5
 
 ```bash
 uv run python figure-two/01_tracking_rates.py
@@ -176,13 +177,13 @@ uv run python figure-five/02_exergame_metrics.py
 
 The cue of Figure 2 and of the label-based Figure 3 analysis is the hold
 labels (`quality == "good"`, gesture matching the task). The by-eye verdict on
-cue modulation (Figure 3, panels b/c) is fixed in
+cue modulation (Figure 3B) is fixed in
 [`figure-three/_common.py`](figure-three/_common.py), the cue windows of the
 exergame run (transcribed from the protocol; the older myocontrol software
 stored no cue track) in [`figure-five/_common.py`](figure-five/_common.py).
 Figures are written as SVG with text as text.
 
-### Figure 4, Supplementary Figures S2b–S7b and Table S2
+### Figure 4, Supplementary Figures 2b–7b and Supplementary Table 2
 
 The Figure 4 steps run in numeric order (`01` → `08`). Filters, RMS features and
 CatBoost settings are defined in [`figure-four/_emg.py`](figure-four/_emg.py); the analysis decisions

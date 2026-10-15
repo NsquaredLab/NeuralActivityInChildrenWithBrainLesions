@@ -3,7 +3,7 @@
 ===========================
 
 Step 7 of the Figure 4 pipeline: one supplementary figure per session (offline
-decoding of the cued hand tasks, Supplementary Figs. S2b-S7b).
+decoding of the cued hand tasks, Supplementary Figs. 2b-7b).
 
     A  all recordings of the session, concatenated (dashed lines: recording
        boundaries): the separate rest recording and the task recordings. Cue,

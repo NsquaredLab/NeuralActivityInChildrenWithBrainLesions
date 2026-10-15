@@ -2,7 +2,7 @@
 08_table_s2.py
 ==============
 
-Step 8 of the Figure 4 pipeline: Supplementary Table S2, offline gesture
+Step 8 of the Figure 4 pipeline: Supplementary Table 2, offline gesture
 classification performance per session and per class (leave-one-repetition-out).
 Reads only the step-03 and step-04 results; no raw data needed.
 
