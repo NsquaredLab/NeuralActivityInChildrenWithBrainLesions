@@ -1,0 +1,8 @@
+{
+  "data_root": "<RAW_DATA_ROOT>",
+  "sessions": {
+    "P01-S1": {
+      "exergame": "exergame/P01-S1_exergame.pkl"
+    }
+  }
+}

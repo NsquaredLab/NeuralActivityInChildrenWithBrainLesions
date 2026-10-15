@@ -1,0 +1,35 @@
+{
+  "data_root": "<RAW_DATA_ROOT>",
+  "sessions": {
+    "P01-S1": {
+      "recording": "P01-S1/P01-S1_raw_and_decomp.pkl",
+      "tracking": "P01-S1/P01-S1_tracking.mat",
+      "labels": "P01-S1/P01-S1_raw_and_decomp.labels_auto_v2.json"
+    },
+    "P01-S2": {
+      "recording": "P01-S2/P01-S2_raw_and_decomp.pkl",
+      "tracking": "P01-S2/P01-S2_tracking.mat",
+      "labels": "P01-S2/P01-S2_raw_and_decomp.labels_auto_v2.json"
+    },
+    "P02-S1": {
+      "recording": "P02-S1/P02-S1_raw_and_decomp.pkl",
+      "tracking": "P02-S1/P02-S1_tracking.mat",
+      "labels": "P02-S1/P02-S1_raw_and_decomp.labels_auto_v2.json"
+    },
+    "P03-S1": {
+      "recording": "P03-S1/P03-S1_raw_and_decomp.pkl",
+      "tracking": "P03-S1/P03-S1_tracking.mat",
+      "labels": "P03-S1/P03-S1_raw_and_decomp.labels_auto_v2.json"
+    },
+    "P04-S1": {
+      "recording": "P04-S1/P04-S1_raw_and_decomp.pkl",
+      "tracking": "P04-S1/P04-S1_tracking.mat",
+      "labels": "P04-S1/P04-S1_raw_and_decomp.labels_auto_v2.json"
+    },
+    "P05-S1": {
+      "recording": "P05-S1/P05-S1_raw_and_decomp.pkl",
+      "tracking": "P05-S1/P05-S1_tracking.mat",
+      "labels": "P05-S1/P05-S1_raw_and_decomp.labels_auto_v2.json"
+    }
+  }
+}

@@ -22,10 +22,10 @@ Analysis and figure-generation code accompanying the study:
 > 4. Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU), Department of Medicine 3 – Rheumatology and Immunology; Erlangen, Germany.
 > 5. Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU), Deutsches Zentrum für Immuntherapie (DZI); Erlangen, Germany.
 
-This repository reproduces the quantitative panels of Figures 2, 3 and 4, the
-per-session offline-decoding Supplementary Figures S2b–S7b and Supplementary
-Table S2 from the high-density surface-electromyography (EMG) recordings
-analysed in the study.
+This repository reproduces the quantitative panels of Figures 2, 3, 4 and 5,
+the per-session offline-decoding Supplementary Figures S2b–S7b and
+Supplementary Table S2 from the high-density surface-electromyography (EMG)
+recordings and the EMG-bracelet exergame recording analysed in the study.
 
 ---
 
@@ -51,15 +51,24 @@ once data access has been granted.
 
 ```
 .
-├── figure-two/
-│   └── two-b-c-d/
-│       └── figure_two-b-c-d.py         # Figure 2B/2C/2D: raw EMG, RMS + MU spike
-│                                       #   trains + firing rates, STA MUAP maps
-├── figure-three/
-│   └── three-b-c/
-│       └── figure_three-b-c.py         # Figure 3B/3C: myocontrol reaction latency
-│                                       #   + event-based confusion matrix
-└── figure-four/                        # Figure 4: offline decoding of cued hand tasks
+├── figure-two/                         # Figure 2: motor-unit tracking per recording day
+│   ├── _common.py                      #   recording days, data readers, hold labels
+│   ├── _emg.py                         #   filters, discharge rate, MUAP maps
+│   ├── _tracking.py, _plot.py          #   figure builders, drawing
+│   ├── _style.py                       #   colours, SVG export
+│   ├── sessions.example.json           #   layout of the private data-file mapping
+│   ├── 01_tracking_rates.py            #   step 1  RMS + discharge rates per tracked MU
+│   └── 02_heatmaps_muap.py             #   step 2  P2P heatmaps + mean MUAPs
+├── figure-three/                       # Figure 3: MU discharge rate vs. cue
+│   ├── _common.py                      #   recording days, by-eye verdict, data readers
+│   ├── _xcorr.py                       #   discharge rate, normalised cross-correlation
+│   ├── _style.py                       #   gesture colours
+│   ├── sessions.example.json           #   layout of the private data-file mapping
+│   ├── 01_xcorr_trigger.py             #   step 1  xcorr with the recorded trigger
+│   ├── 02_xcorr_labels.py              #   step 2  xcorr with the hold labels
+│   ├── 03_xcorr_overview.py            #   step 3  Fig3_MU_xcorr_overview
+│   └── 04_mu_overview.py               #   step 4  Fig3_MU_overview (panels a-c)
+├── figure-four/                        # Figure 4: offline decoding of cued hand tasks
     ├── _common.py                      #   sessions, analysis decisions, shared helpers
     ├── _emg.py                         #   filters, RMS features, CatBoost settings
     ├── _style.py, _svg.py              #   figure style, editable-SVG export
@@ -72,10 +81,18 @@ once data access has been granted.
     ├── 06_attempt_summary.py           #   step 6  attempts per cue, cue coupling, cue timing
     ├── 07_supplementary_figures.py     #   step 7  Supplementary Figs. S2b–S7b (one per session)
     └── 08_table_s2.py                  #   step 8  Supplementary Table S2
+└── figure-five/                        # Figure 5: one run of the bracelet exergame
+    ├── _common.py                      #   run, cue windows, recording reader
+    ├── _metrics.py                     #   latency, accuracy, sample/event F1
+    ├── _plot.py                        #   run plot, event-based confusion matrix
+    ├── sessions.example.json           #   layout of the private data-file mapping
+    ├── 01_exergame_run.py              #   step 1  run plot + confusion matrix
+    └── 02_exergame_metrics.py          #   step 2  accuracy, latency, F1
 ```
 
-The Figure 4 scripts are numbered `01`–`08` to make their run order explicit;
-the modules starting with `_` hold the definitions they share.
+In every figure folder the scripts are numbered (`01`, `02`, …) to make their
+run order explicit; the modules starting with `_` hold the definitions they
+share.
 
 ---
 
@@ -95,7 +112,7 @@ uv sync
 python -m venv .venv
 # Windows:  .venv\Scripts\activate
 # Unix:     source .venv/bin/activate
-pip install "numpy>=1.24,<2" "scipy>=1.11,<2" "matplotlib>=3.9,<4" \
+pip install "numpy>=1.24,<2" "scipy>=1.11,<2" "matplotlib>=3.9,<4" "pandas>=2.0,<4" \
             "scikit-learn>=1.3,<2" "catboost>=1.2,<2" "umap-learn>=0.5.12,<0.6"
 ```
 
@@ -114,8 +131,12 @@ message if a required input is missing.
 
 | Script | Produces |
 | --- | --- |
-| `figure-two/two-b-c-d/figure_two-b-c-d.py` | Figure 2B/2C/2D panels |
-| `figure-three/three-b-c/figure_three-b-c.py` | Figure 3B/3C/3D panels |
+| `figure-two/01_tracking_rates.py` | **Figure 2** tracking panels: RMS, discharge rates and pulses per tracked MU (`results/tracking_rates/`) |
+| `figure-two/02_heatmaps_muap.py` | **Figure 2** P2P heatmaps and mean MUAPs per tracked MU (`results/heatmaps/`) |
+| `figure-three/01_xcorr_trigger.py` | xcorr of the MU discharge rates with the trigger (`data/<S>_*.csv`) |
+| `figure-three/02_xcorr_labels.py` | xcorr of the MU discharge rates with the hold labels (`data/labels_*.csv`, `data/mu_corr_labels_*.csv`) |
+| `figure-three/03_xcorr_overview.py` | **Figure 3** `Fig3_MU_xcorr_overview` (`results/`) |
+| `figure-three/04_mu_overview.py` | **Figure 3** `Fig3_MU_overview`, panels a–c (`results/`) |
 | `figure-four/01_auto_labels.py` | rule-based attempt labels (`data/labels/<S>.labels_auto_v2.json`) |
 | `figure-four/02_dataset.py` | labelled datasets + RMS features (`data/<S>_rms_features.npz`) |
 | `figure-four/03_loro_cv.py` | leave-one-repetition-out predictions + metrics (`results/loro_results.json`) |
@@ -124,6 +145,42 @@ message if a required input is missing.
 | `figure-four/06_attempt_summary.py` | attempts per cue, cue coupling and timing of the presented cue (`results/attempt_summary*.csv`, `results/cue_timing.csv`) |
 | `figure-four/07_supplementary_figures.py` | **Supplementary Figs. S2b–S7b** (`results/supplementary/SuppFig_<S>.*`) |
 | `figure-four/08_table_s2.py` | **Supplementary Table S2** (`results/table_s2*.csv`, `results/table_s2.md`) |
+| `figure-five/01_exergame_run.py` | **Figure 5** run plot and event-based confusion matrix (`results/`) |
+| `figure-five/02_exergame_metrics.py` | **Figure 5** accuracy, reaction latency, sample/event F1 (`results/Fig5_exergame_*_values.csv`) |
+
+Every figure folder reads the participant files from its own private
+`sessions.local.json` (git-ignored); copy the folder's `sessions.example.json`
+and set `data_root`. The example names the files each step imports, with their
+pseudonymised names (`<S>` = `P01-S1`, `P01-S2`, `P02-S1`, …):
+`<S>/<S>_raw_and_decomp.pkl` (recording day: EMG, trigger, labels,
+decomposition per task), `<S>/<S>_tracking.mat` (concatenated DEMUSE
+decomposition of all gestures of the day), `<S>/<S>_raw_and_decomp.labels_auto_v2.json`
+(hold labels) and `exergame/P01-S1_exergame.pkl` (bracelet exergame run).
+Everything the steps write goes to `data/` and `results/` inside the folder,
+both git-ignored.
+
+### Figure 2, Figure 3 and Figure 5
+
+```bash
+uv run python figure-two/01_tracking_rates.py
+uv run python figure-two/02_heatmaps_muap.py
+
+uv run python figure-three/01_xcorr_trigger.py
+uv run python figure-three/02_xcorr_labels.py
+uv run python figure-three/03_xcorr_overview.py   # needs no raw data
+uv run python figure-three/04_mu_overview.py      # needs no raw data
+
+uv run python figure-five/01_exergame_run.py
+uv run python figure-five/02_exergame_metrics.py
+```
+
+The cue of Figure 2 and of the label-based Figure 3 analysis is the hold
+labels (`quality == "good"`, gesture matching the task). The by-eye verdict on
+cue modulation (Figure 3, panels b/c) is fixed in
+[`figure-three/_common.py`](figure-three/_common.py), the cue windows of the
+exergame run (transcribed from the protocol; the older myocontrol software
+stored no cue track) in [`figure-five/_common.py`](figure-five/_common.py).
+Figures are written as SVG with text as text.
 
 ### Figure 4, Supplementary Figures S2b–S7b and Table S2
 

@@ -59,7 +59,10 @@ bin/
 
 config.json
 
-# Figure 4: private mapping of session names to the (identifying) data files
+# Private mapping of session names to the (identifying) data files
+figure-two/sessions.local.json
+figure-three/sessions.local.json
 figure-four/sessions.local.json
+figure-five/sessions.local.json
 
 .claude/

@@ -6,14 +6,15 @@ authors = [{ name = "Dominik I. Braun", email = "dome.braun@fau.de" }]
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.11,<3.13"
-# Dependencies of the analysis and figure code (Figure 2/Figure 3 scripts and
-# the Figure 4 pipeline). All are on PyPI. umap-learn (Figure 4 supplementary
+# Dependencies of the analysis and figure code (Figure 2, 3, 4 and 5
+# pipelines). All are on PyPI. umap-learn (Figure 4 supplementary
 # figures) is pinned together with numba/pynndescent in uv.lock, so the UMAP
 # embeddings are reproduced exactly. Note: no participant data are distributed
 # with this repository; the data are available on request.
 dependencies = [
     "matplotlib>=3.9.2,<4.0",
     "numpy>=1.24.3,<2.0",
+    "pandas>=2.0,<4.0",
     "catboost>=1.2,<2.0",
     "scipy>=1.11,<2.0",
     "scikit-learn>=1.3,<2.0",
